@@ -23,7 +23,7 @@ Make sure you have the following tools installed before running the application:
 ## Getting Started
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/your-repo.git
+    git clone https://github.com/UzairKhan313/My-Place.git
     cd your-repo
     ```
 
