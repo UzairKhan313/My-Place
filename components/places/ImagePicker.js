@@ -1,11 +1,14 @@
-import { Alert, Button, View } from "react-native";
+import { Alert, Button, Image, View, Text, StyleSheet } from "react-native";
 import {
   launchCameraAsync,
   useCameraPermissions,
   PermissionStatus,
 } from "expo-image-picker";
+import { useState } from "react";
+import { Colors } from "../../constants/colors";
 
 export default ImagePicker = () => {
+  const [pickedImage, setPickedImage] = useState();
   // From line 10 to 32 code is for taking mobile camera permission on IOS  This Hook is use for Taking permission for camer on IOS
   const [cameraPermissionInformation, requestPermission] =
     useCameraPermissions();
@@ -34,20 +37,43 @@ export default ImagePicker = () => {
   const pickImageHandler = async () => {
     const hasPermission = await verifyPermission();
     if (!hasPermission) {
-      return ;
+      return;
     }
     // Lunching Camera for android.
-    const image = launchCameraAsync({
+    const image = await launchCameraAsync({
       allowsEditing: true,
       aspect: [16, 9],
       quality: 0.5,
     });
-    console.log(image);
+    setPickedImage(image.assets[0].uri);
+   
   };
+  let imagePreview = <Text>No image taken yet.</Text>;
+
+  if (pickedImage) {
+    imagePreview = <Image style={styles.image} source={{ uri: pickedImage }} />;
+  }
+
   return (
     <View>
-      <View></View>
+      <View style={styles.imagePreview}>{imagePreview}</View>
       <Button title="Take Image" onPress={pickImageHandler} />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  imagePreview: {
+    width: "100%",
+    height: 200,
+    marginVertical: 4,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.primary100,
+    borderRadius: 4,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+});
