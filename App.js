@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import AllPlaces from "./screens/AllPlaces";
 import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/UI/IconButton";
-import { Colors } from "./constants/colors";
+import { Colors } from "./constants/colors.js";
 
 const Stack = createStackNavigator();
 
